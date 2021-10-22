@@ -1,13 +1,19 @@
-extends Sprite
+extends MeshInstance
 
 onready var prompt = $RichTextLabel
 onready var prompt_text = prompt.text
 export (Color) var blue = Color("#4682b4")
 export (Color) var green = Color("#639765")
 export (Color) var red = Color("#a65455")
+
+export (float) var speed = 0.1
+
 func get_prompt() -> String:
 	return prompt.text
 
+func _physics_process(delta):
+	global_transform.translated(Vector3(0,0,speed)) 
+	
 func set_next_character(next_character_index : int):
 	var blue_text = get_bbcode_color_tag(blue) + prompt_text.substr(0,next_character_index) + get_bbcode_end_color_tag()
 	var green_text = get_bbcode_color_tag(green) + prompt_text.substr(next_character_index,1) + get_bbcode_end_color_tag()

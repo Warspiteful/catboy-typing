@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 var active_enemy = null;
 var current_letter_index: int = -1
