@@ -6,13 +6,13 @@ export (Color) var blue = Color("#4682b4")
 export (Color) var green = Color("#639765")
 export (Color) var red = Color("#a65455")
 
-export (float) var speed = 0.1
+export (float) var speed = 0.01
 
 func get_prompt() -> String:
 	return prompt.text
 
 func _physics_process(delta):
-	global_transform.translated(Vector3(0,0,speed)) 
+	transform = transform.translated(Vector3(0,speed,0)) 
 	
 func set_next_character(next_character_index : int):
 	var blue_text = get_bbcode_color_tag(blue) + prompt_text.substr(0,next_character_index) + get_bbcode_end_color_tag()
