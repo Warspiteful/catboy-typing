@@ -22,7 +22,6 @@ __meta__ = {
 [node name="EnemyContainer" type="Node2D" parent="."]
 
 [node name="Enemy" type="Sprite" parent="EnemyContainer"]
-modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 240, 125 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )
