@@ -46,6 +46,100 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.40976
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameOverScreen" type="PanelContainer" parent="CanvasLayer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GameOverScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1913.0
+margin_bottom = 1073.0
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverScreen/CenterContainer"]
+margin_left = 909.0
+margin_top = 496.0
+margin_right = 997.0
+margin_bottom = 570.0
+custom_constants/separation = 40
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+margin_right = 88.0
+margin_bottom = 14.0
+text = "You have Lost"
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 88.0
+margin_bottom = 74.0
+text = "RESTART"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopRow" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 14.0
+
+[node name="TopRowH" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TopRow"]
+margin_left = 934.0
+margin_right = 986.0
+margin_bottom = 14.0
+
+[node name="EnemiesKilled" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Killed:"
+
+[node name="EnemiesKilledValue" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
+margin_left = 44.0
+margin_right = 52.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1920.0
+margin_bottom = 1062.0
+size_flags_vertical = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 1066.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/BottomRow"]
+margin_right = 87.0
+margin_bottom = 14.0
+custom_constants/separation = 10
+
+[node name="DifficultyLabel" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow/BottomRow"]
+margin_right = 69.0
+margin_bottom = 14.0
+text = "  Difficulty:"
+
+[node name="DifficultyLabelValue" type="Label" parent="CanvasLayer/VBoxContainer/BottomRow/BottomRow"]
+margin_left = 79.0
+margin_right = 87.0
+margin_bottom = 14.0
+text = "0"
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
+[connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
