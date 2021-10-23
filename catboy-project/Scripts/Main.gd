@@ -1,10 +1,19 @@
 extends Spatial
 
+var Enemy = preload("res://Enemy.tscn")
+
+
 var active_enemy = null;
 var current_letter_index: int = -1
 onready var enemy_container = $EnemyContainer
+onready var spawn_container = $SpawnContainer
+onready var spawn_timer = $SpawnTimer
+
 func ready():
 	OS.set_ime_active(true)
+	randomize()
+	spawn_enemy()
+	spawn_timer.start()
 	
 func find_new_active_enemy(typed_character: String):
 	for enemy in enemy_container.get_children():
@@ -43,3 +52,15 @@ func _input(event: InputEvent) -> void:
 			
 		
 		
+
+
+func _on_SpawnTimer_timeout() -> void:
+	spawn_enemy()
+	
+func spawn_enemy():
+	print("Spawn")
+	var enemy_instance = Enemy.instance()
+	var spawns = spawn_container.get_children()
+	var index = randi() % spawns.size()
+	enemy_container.add_child(enemy_instance)
+	enemy_instance.global_transform = spawns[index].global_transform
