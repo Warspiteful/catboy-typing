@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.953642, 0.980132, 0.986755, 0.993378, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.177456, 0.177456, 0.177456, 1, 0.188864, 0.188864, 0.188864, 1, 0.927152, 0.927152, 0.927152, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+margin_top = 920.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+texture = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="RichTextLabel" parent="NinePatchRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "Name"
+
+[node name="Message" type="RichTextLabel" parent="NinePatchRect"]
+margin_right = 40.0
+margin_bottom = 40.0
