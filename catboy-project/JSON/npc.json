@@ -1,0 +1,6 @@
+[
+    {"name" : "NPC", "text" : "Hello stranger!"},
+    {"name" : "Player", "text" : "Hello back, stranger!"},
+    {"name" : "NPC", "text" : "Goodbye, stranger!"},
+       
+]

@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://DialoguePlayer.gd" type="Script" id=1]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.953642, 0.980132, 0.986755, 0.993378, 1 )
@@ -7,12 +9,15 @@ colors = PoolColorArray( 0, 0, 0, 1, 0.177456, 0.177456, 0.177456, 1, 0.188864, 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="DialoguePlayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+dialogue_file = "res://JSON/npc.json"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_top = 920.0
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_left = 13.2395
+margin_top = 536.057
+margin_right = 1933.24
+margin_bottom = 696.057
 texture = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -22,7 +27,16 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Message" type="RichTextLabel" parent="NinePatchRect"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 2.0
+margin_top = 15.0
+margin_right = 986.0
+margin_bottom = 154.0
+text = "THIS IS PLACEHOLDER TEXT"
+__meta__ = {
+"_edit_use_anchors_": false
+}

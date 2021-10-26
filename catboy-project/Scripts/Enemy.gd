@@ -8,16 +8,25 @@ export (Color) var red = Color("#a65455")
 
 export (float) var speed = 0.01
 
+export (float) var attack_distance = -3
+
+var attacking : bool = false
+
 func _ready():
 	prompt_text = PromptList.get_prompt()
 	prompt.parse_bbcode(set_center_tags(prompt_text))
 	GlobalSignals.connect("difficulty increased", self, "handle_difficulty_increased")
 	
+	
 func get_prompt() -> String:
 	return prompt.text
 
 func _physics_process(delta):
-	transform = transform.translated(Vector3(0,speed,0)) 
+	if(translation.z < attack_distance):
+		transform = transform.translated(Vector3(0,speed,0)) 
+	elif(attacking == false):
+		$AttackTimer.start()
+		attacking = true
 	
 func set_next_character(next_character_index : int):
 	var blue_text = get_bbcode_color_tag(blue) + prompt_text.substr(0,next_character_index) + get_bbcode_end_color_tag()
@@ -43,4 +52,11 @@ func handle_difficulty_increased(new_difficulty : int):
 	var new_speed = speed + (0.005 * new_difficulty)
 	speed = clamp(new_speed, speed, .02)
 	
+func resetTimer():
+	$AttackTimer.start()
+
+
+func _on_AttackTimer_timeout():
+	
+	$AttackTimer.stop()
 	
