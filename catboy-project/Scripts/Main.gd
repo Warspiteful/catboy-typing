@@ -15,6 +15,7 @@ onready var difficulty_timer = $DifficultyTimer
 onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/BottomRow/DifficultyLabelValue
 onready var killed_value = $CanvasLayer/VBoxContainer/TopRow/TopRowH/EnemiesKilledValue
 onready var game_over_screen = $CanvasLayer/GameOverScreen
+onready var game_pause_screen = $CanvasLayer/GamePauseScreen
 
 func _ready():
 	OS.set_ime_active(true)
@@ -98,6 +99,7 @@ func game_over():
 		
 	
 func start_game():
+	game_pause_screen.hide()
 	game_over_screen.hide()
 	difficulty = 0
 	enemies_killed = 0
@@ -109,7 +111,13 @@ func start_game():
 	difficulty_timer.start()
 	pass
 	
+func _on_PauseButton_pressed():
+	get_tree().paused = true
+	game_pause_screen.show()
 
+func _on_ResumeButton_pressed():
+	get_tree().paused = false
+	game_pause_screen.hide()
 
 func _on_RestartButton_pressed():
 	start_game()

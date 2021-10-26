@@ -95,26 +95,34 @@ __meta__ = {
 
 [node name="TopRow" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
 margin_right = 1920.0
-margin_bottom = 14.0
+margin_bottom = 20.0
 
 [node name="TopRowH" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TopRow"]
-margin_left = 934.0
-margin_right = 986.0
-margin_bottom = 14.0
+margin_left = 907.0
+margin_right = 1013.0
+margin_bottom = 20.0
+
+[node name="PauseButton" type="Button" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
+margin_right = 50.0
+margin_bottom = 20.0
+text = "Pause"
 
 [node name="EnemiesKilled" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = 54.0
+margin_top = 3.0
+margin_right = 94.0
+margin_bottom = 17.0
 text = "Killed:"
 
 [node name="EnemiesKilledValue" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
-margin_left = 44.0
-margin_right = 52.0
-margin_bottom = 14.0
+margin_left = 98.0
+margin_top = 3.0
+margin_right = 106.0
+margin_bottom = 17.0
 text = "0"
 
 [node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 24.0
 margin_right = 1920.0
 margin_bottom = 1062.0
 size_flags_vertical = 3
@@ -140,6 +148,40 @@ margin_right = 87.0
 margin_bottom = 14.0
 text = "0"
 
+[node name="GamePauseScreen" type="PanelContainer" parent="CanvasLayer"]
+margin_top = -1.0
+margin_right = 1922.0
+margin_bottom = 1082.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GamePauseScreen"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1915.0
+margin_bottom = 1076.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GamePauseScreen/CenterContainer"]
+margin_left = 910.0
+margin_top = 515.0
+margin_right = 998.0
+margin_bottom = 553.0
+
+[node name="Label" type="Label" parent="CanvasLayer/GamePauseScreen/CenterContainer/VBoxContainer"]
+margin_right = 88.0
+margin_bottom = 14.0
+text = "Game Paused"
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/GamePauseScreen/CenterContainer/VBoxContainer"]
+pause_mode = 2
+margin_top = 18.0
+margin_right = 88.0
+margin_bottom = 38.0
+text = "Resume"
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/TopRow/TopRowH/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/GamePauseScreen/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
