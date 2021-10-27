@@ -56,7 +56,6 @@ autostart = true
 [node name="GameOverScreen" type="PanelContainer" parent="CanvasLayer"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -78,6 +77,7 @@ custom_constants/separation = 40
 [node name="Label" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
 margin_right = 88.0
 margin_bottom = 14.0
+mouse_filter = 1
 text = "You have Lost"
 
 [node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
@@ -98,8 +98,8 @@ margin_right = 1920.0
 margin_bottom = 20.0
 
 [node name="TopRowH" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/TopRow"]
-margin_left = 907.0
-margin_right = 1013.0
+margin_left = 876.0
+margin_right = 1044.0
 margin_bottom = 20.0
 
 [node name="PauseButton" type="Button" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
@@ -120,6 +120,26 @@ margin_top = 3.0
 margin_right = 106.0
 margin_bottom = 17.0
 text = "0"
+
+[node name="Health" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
+margin_left = 110.0
+margin_top = 3.0
+margin_right = 156.0
+margin_bottom = 17.0
+text = "Health:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthVal" type="Label" parent="CanvasLayer/VBoxContainer/TopRow/TopRowH"]
+margin_left = 160.0
+margin_top = 3.0
+margin_right = 168.0
+margin_bottom = 17.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MiddleRow" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 margin_top = 24.0
@@ -149,6 +169,7 @@ margin_bottom = 14.0
 text = "0"
 
 [node name="GamePauseScreen" type="PanelContainer" parent="CanvasLayer"]
+visible = false
 margin_top = -1.0
 margin_right = 1922.0
 margin_bottom = 1082.0

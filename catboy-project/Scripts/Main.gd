@@ -14,6 +14,7 @@ onready var spawn_container = $SpawnContainer
 onready var spawn_timer = $SpawnTimer
 onready var difficulty_timer = $DifficultyTimer
 onready var difficulty_value = $CanvasLayer/VBoxContainer/BottomRow/BottomRow/DifficultyLabelValue
+onready var health_value = $CanvasLayer/VBoxContainer/TopRow/TopRowH/HealthVal
 onready var killed_value = $CanvasLayer/VBoxContainer/TopRow/TopRowH/EnemiesKilledValue
 onready var game_over_screen = $CanvasLayer/GameOverScreen
 onready var game_pause_screen = $CanvasLayer/GamePauseScreen
@@ -34,13 +35,17 @@ func find_new_active_enemy(typed_character: String):
 			return
 			
 func _process(delta):
+
 	if(health <= 0):
 		game_over()
 		return
 	for enemy in enemy_container.get_children():
-		if(!enemy.damage_queue.empty()):
-			for damage in enemy.damage_queue:
-				health -= damage;
+		while(!enemy.damage_queue.empty()):
+			health -= enemy.damage_queue.pop_back();
+			print("HIT!")
+			health_value.text = str(health);
+				
+				
 
 			
 			
@@ -72,7 +77,8 @@ func _input(event: InputEvent) -> void:
 				print("Incorrectly type %s instead of %s" % [key_typed, next_char])
 			
 func _on_SpawnTimer_timeout() -> void:
-	spawn_enemy()
+	#spawn_enemy()
+	pass
 	
 func spawn_enemy():
 
@@ -109,10 +115,12 @@ func game_over():
 func start_game():
 	game_pause_screen.hide()
 	game_over_screen.hide()
+	print("Started!")
 	difficulty = 0
 	enemies_killed = 0
 	difficulty_value.text = str(0)
 	killed_value.text = str(0)
+	health_value.text = str(health)
 	randomize()
 	spawn_enemy()
 	spawn_timer.start()

@@ -27,6 +27,7 @@ func _physics_process(delta):
 	if(translation.z < attack_distance):
 		transform = transform.translated(Vector3(0,speed,0)) 
 	elif(attacking == false):
+		print("Attacking!")
 		$AttackTimer.start()
 		attacking = true
 	
@@ -57,8 +58,9 @@ func handle_difficulty_increased(new_difficulty : int):
 func resetTimer():
 	$AttackTimer.start()
 
-
 func _on_AttackTimer_timeout():
-	 damage_queue.append(damage)
+	print("Damage!")
+	damage_queue.append(damage)
+	print(damage_queue)
 	
 	
