@@ -34,11 +34,14 @@ func find_new_active_enemy(typed_character: String):
 			return
 			
 func _process(delta):
-	print(health)
+	if(health <= 0):
+		game_over()
+		return
 	for enemy in enemy_container.get_children():
 		if(!enemy.damage_queue.empty()):
 			for damage in enemy.damage_queue:
 				health -= damage;
+
 			
 			
 func _input(event: InputEvent) -> void:
