@@ -25,22 +25,22 @@ __meta__ = {
 [node name="SpawnContainer" type="Spatial" parent="."]
 
 [node name="Position3D" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.409764, 0, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409764, 0, -6 )
 
 [node name="Position3D3" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.409764, -0.381504, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409764, -0.381504, -6 )
 
 [node name="Position3D4" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.367375, -0.381504, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367375, -0.381504, -6 )
 
 [node name="Position3D5" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.367375, -0.0423894, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367375, -0.0423894, -6 )
 
 [node name="Position3D6" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.367375, 0.292016, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367375, 0.292016, -6 )
 
 [node name="Position3D2" type="Position3D" parent="SpawnContainer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.409764, 0.447443, -6 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409764, 0.447443, -6 )
 
 [node name="EnemyContainer" type="Spatial" parent="."]
 

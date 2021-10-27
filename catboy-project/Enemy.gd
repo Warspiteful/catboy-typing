@@ -1,6 +1,7 @@
-extends MeshInstance
+extends Spatial
 
-onready var prompt = $Viewport/Control/Panel/RichTextLabel
+onready var prompt = $Enemy/Viewport/Control/Panel/RichTextLabel
+onready var attack_timer = $Enemy/AttackTimer  
 onready var prompt_text = prompt.text
 export (Color) var blue = Color("#4682b4")
 export (Color) var green = Color("#639765")
@@ -25,10 +26,10 @@ func get_prompt() -> String:
 
 func _physics_process(delta):
 	if(translation.z < attack_distance):
-		transform = transform.translated(Vector3(0,speed,0)) 
+		transform = transform.translated(Vector3(0,0,speed)) 
 	elif(attacking == false):
 		print("Attacking!")
-		$AttackTimer.start()
+		attack_timer.start()
 		attacking = true
 	
 func set_next_character(next_character_index : int):

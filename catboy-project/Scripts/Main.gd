@@ -42,7 +42,6 @@ func _process(delta):
 	for enemy in enemy_container.get_children():
 		while(!enemy.damage_queue.empty()):
 			health -= enemy.damage_queue.pop_back();
-
 			health_value.text = str(health);
 				
 				
@@ -66,7 +65,7 @@ func _input(event: InputEvent) -> void:
 				current_letter_index += 1
 				active_enemy.set_next_character(current_letter_index)
 				print(prompt.length())
-				if current_letter_index == prompt.length()-1:
+				if current_letter_index == prompt.length():
 					print("Killed Enemy!")
 					current_letter_index = -1
 					active_enemy.queue_free()
@@ -77,7 +76,7 @@ func _input(event: InputEvent) -> void:
 				print("Incorrectly type %s instead of %s" % [key_typed, next_char])
 			
 func _on_SpawnTimer_timeout() -> void:
-	#spawn_enemy()
+	spawn_enemy()
 	pass
 	
 func spawn_enemy():
