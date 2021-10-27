@@ -42,7 +42,7 @@ func _process(delta):
 	for enemy in enemy_container.get_children():
 		while(!enemy.damage_queue.empty()):
 			health -= enemy.damage_queue.pop_back();
-			print("HIT!")
+
 			health_value.text = str(health);
 				
 				
