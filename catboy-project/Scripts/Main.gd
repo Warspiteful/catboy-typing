@@ -7,6 +7,7 @@ var active_enemy = null;
 var current_letter_index: int = -1
 var difficulty :int = 1
 var enemies_killed : int = 0
+var health : int = 5 
 
 onready var enemy_container = $EnemyContainer
 onready var spawn_container = $SpawnContainer
@@ -31,7 +32,15 @@ func find_new_active_enemy(typed_character: String):
 			current_letter_index = 1
 			active_enemy.set_next_character(current_letter_index)
 			return
-	
+			
+func _process(delta):
+	print(health)
+	for enemy in enemy_container.get_children():
+		if(!enemy.damage_queue.empty()):
+			for damage in enemy.damage_queue:
+				health -= damage;
+			
+			
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and not event.is_pressed():
 		var typed_event = event as InputEventKey
@@ -59,10 +68,6 @@ func _input(event: InputEvent) -> void:
 			else:
 				print("Incorrectly type %s instead of %s" % [key_typed, next_char])
 			
-		
-		
-
-
 func _on_SpawnTimer_timeout() -> void:
 	spawn_enemy()
 	

@@ -7,10 +7,12 @@ export (Color) var green = Color("#639765")
 export (Color) var red = Color("#a65455")
 
 export (float) var speed = 0.01
-
+export (int) var damage = 1
 export (float) var attack_distance = -3
 
 var attacking : bool = false
+
+var damage_queue = []
 
 func _ready():
 	prompt_text = PromptList.get_prompt()
@@ -57,6 +59,6 @@ func resetTimer():
 
 
 func _on_AttackTimer_timeout():
+	 damage_queue.append(damage)
 	
-	$AttackTimer.stop()
 	
