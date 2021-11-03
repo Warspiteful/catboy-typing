@@ -1,7 +1,7 @@
 extends Spatial
 
 var Enemy = preload("res://Enemy.tscn")
-
+signal dialogue_start(conversation_number)
 
 var active_enemy = null;
 var current_letter_index: int = -1
@@ -137,3 +137,8 @@ func _on_ResumeButton_pressed():
 func _on_RestartButton_pressed():
 	print("Restarted")
 	start_game()
+
+
+func _on_DialoguePlayer_dialogue_end(conversation_number):
+	difficulty_timer.start()
+	

@@ -11,7 +11,6 @@ gradient = SubResource( 1 )
 
 [node name="DialoguePlayer" type="CanvasLayer"]
 script = ExtResource( 1 )
-dialogue_file = "res://JSON/npc.json"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 margin_left = 13.2395

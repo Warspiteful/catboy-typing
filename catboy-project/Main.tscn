@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://DialoguePlayer.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
@@ -50,6 +51,9 @@ wait_time = 3.0
 [node name="DifficultyTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="DialoguePlayer" parent="." instance=ExtResource( 3 )]
+dialogue_file = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -202,8 +206,10 @@ margin_right = 88.0
 margin_bottom = 38.0
 text = "Resume"
 
+[connection signal="dialogue_start" from="." to="DialoguePlayer" method="_on_Main_dialogue_start"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
+[connection signal="dialogue_end" from="DialoguePlayer" to="." method="_on_DialoguePlayer_dialogue_end"]
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TopRow/TopRowH/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/GamePauseScreen/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
