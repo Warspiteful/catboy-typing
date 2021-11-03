@@ -112,9 +112,9 @@ func game_over():
 		
 	
 func start_game():
+	print("Started!")
 	game_pause_screen.hide()
 	game_over_screen.hide()
-	print("Started!")
 	difficulty = 0
 	enemies_killed = 0
 	difficulty_value.text = str(0)
@@ -124,7 +124,7 @@ func start_game():
 	spawn_enemy()
 	spawn_timer.start()
 	difficulty_timer.start()
-	pass
+	
 	
 func _on_PauseButton_pressed():
 	get_tree().paused = true
@@ -135,4 +135,5 @@ func _on_ResumeButton_pressed():
 	game_pause_screen.hide()
 
 func _on_RestartButton_pressed():
+	print("Restarted")
 	start_game()

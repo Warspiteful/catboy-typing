@@ -4,43 +4,43 @@
 [ext_resource path="res://Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Roboto-Regular.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="PlaneMesh" id=1]
+[sub_resource type="PlaneMesh" id=2]
 
-[sub_resource type="Skin" id=2]
+[sub_resource type="Skin" id=3]
 bind_count = 1
 bind/0/name = ""
 bind/0/bone = -1
 bind/0/pose = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_texture = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=4]
+[sub_resource type="QuadMesh" id=5]
 resource_local_to_scene = true
 size = Vector2( 1, 0.2 )
 
-[sub_resource type="ViewportTexture" id=7]
+[sub_resource type="ViewportTexture" id=6]
 viewport_path = NodePath("Enemy/Viewport")
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_albedo_tex_force_srgb = true
-albedo_texture = SubResource( 7 )
+albedo_texture = SubResource( 6 )
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Enemy" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 1 )
-skin = SubResource( 2 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 2 )
+skin = SubResource( 3 )
+material/0 = SubResource( 4 )
 
 [node name="Viewport" type="Viewport" parent="Enemy"]
 size = Vector2( 280, 180 )
@@ -63,7 +63,7 @@ margin_top = 67.64
 margin_right = 224.0
 margin_bottom = 89.0
 rect_clip_content = false
-custom_fonts/normal_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]placeholder [/center]"
 text = "placeholder "
@@ -73,12 +73,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AttackTimer" type="Timer" parent="Enemy"]
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.18995, -1.20792e-13 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 7 )
+
+[node name="AttackTimer" type="Timer" parent="."]
 wait_time = 10.0
 
-[node name="MeshInstance" type="MeshInstance" parent="Enemy"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -5.20145e-08, -1.18995 )
-mesh = SubResource( 4 )
-material/0 = SubResource( 6 )
-
-[connection signal="timeout" from="Enemy/AttackTimer" to="Enemy" method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

@@ -1,7 +1,7 @@
 extends Spatial
 
 onready var prompt = $Enemy/Viewport/Control/Panel/RichTextLabel
-onready var attack_timer = $Enemy/AttackTimer  
+onready var attack_timer = $AttackTimer  
 onready var prompt_text = prompt.text
 export (Color) var blue = Color("#4682b4")
 export (Color) var green = Color("#639765")
