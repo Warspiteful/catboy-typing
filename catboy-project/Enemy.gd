@@ -33,6 +33,9 @@ func _physics_process(delta):
 		attacking = true
 	
 func set_next_character(next_character_index : int):
+	if(next_character_index != 0):
+		$Enemy/AnimationPlayer.stop()
+		$Enemy/AnimationPlayer.play("hit")
 	var blue_text = get_bbcode_color_tag(blue) + prompt_text.substr(0,next_character_index) + get_bbcode_end_color_tag()
 	var green_text = get_bbcode_color_tag(green) + prompt_text.substr(next_character_index,1) + get_bbcode_end_color_tag()
 	var red_text = ""
