@@ -31,7 +31,7 @@ func next_line():
 func load_dialogues():
 	var file = File.new()
 	if file.file_exists(dialogue_file[current_converation_id]):
-		file.open(dialogue_file,file.READ)
+		file.open(dialogue_file[current_converation_id],file.READ)
 		return parse_json(file.get_as_text())
 
 

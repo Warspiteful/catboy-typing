@@ -1,6 +1,9 @@
 extends Spatial
 
 var Enemy = preload("res://Enemy.tscn")
+var Enemy2 = preload("res://Enemy.tscn")
+var Enemy3 = preload("res://Enemy.tscn")
+var Enemy4 = preload("res://Enemy.tscn")
 signal dialogue_start(conversation_number)
 
 var active_enemy = null;
@@ -8,6 +11,7 @@ var current_letter_index: int = -1
 var difficulty :int = 1
 var enemies_killed : int = 0
 var health : int = 5 
+var level : int = 0
 
 onready var enemy_container = $EnemyContainer
 onready var spawn_container = $SpawnContainer
@@ -26,7 +30,8 @@ func _ready():
 func find_new_active_enemy(typed_character: String):
 	for enemy in enemy_container.get_children():
 		var prompt = enemy.get_prompt()
-		var next_char = prompt.substr(0,1)
+		var next_char = prompt.substr(0,1).to_lower()
+
 	
 		if next_char == typed_character:
 			active_enemy = enemy
@@ -43,11 +48,7 @@ func _process(delta):
 		while(!enemy.damage_queue.empty()):
 			health -= enemy.damage_queue.pop_back();
 			health_value.text = str(health);
-				
-				
-
-			
-			
+	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and not event.is_pressed():
 		var typed_event = event as InputEventKey
@@ -84,19 +85,30 @@ func spawn_enemy():
 	var enemy_instance = Enemy.instance()
 	var spawns = spawn_container.get_children()
 	var index = randi() % spawns.size()
-	enemy_instance.global_transform = spawns[index].global_transform
+	enemy_instance.set_translation(Vector3(rand_range(-3,3),rand_range(-3,0),-6))
 	enemy_container.add_child(enemy_instance)
 	enemy_instance.set_difficulty(difficulty)
 
 func _on_DifficultyTimer_timeout():
-	if difficulty >= 20:
-		difficulty_timer.stop()
-		difficulty = 20
-		return
-		
+	if difficulty >= 10:
+		print("WATCH OUT")
+		print("Level")
+		if level < 2:
+			level += 1
+			difficulty = 0
+			print("Level increased to %d" % level)
+			playDialogue()
+			PromptList.handle_level_increased(level)
+			spawn_timer.wait_time = spawn_timer.wait_time + 1
+			return
+		else:
+			difficulty = 10
+			difficulty_timer.stop()
+			return
+	
 	difficulty += 1
 	difficulty_value.text = str(difficulty)
-	GlobalSignals.emit_signal("difficulty increased", difficulty)
+	GlobalSignals.emit_signal("difficulty_increase", difficulty)
 	print("Difficulty increased to %d" % difficulty)
 	var new_wait_time = spawn_timer.wait_time - 0.2
 	spawn_timer.wait_time = clamp(new_wait_time, 1, spawn_timer.wait_time)
@@ -110,11 +122,15 @@ func game_over():
 	for enemy in enemy_container.get_children():
 		enemy.queue_free()
 		
+
+func playDialogue():
+	get_tree().paused = true
+	emit_signal("dialogue_start",level)
 	
 func start_game():
-	print("Started!")
 	game_pause_screen.hide()
 	game_over_screen.hide()
+	playDialogue()
 	difficulty = 0
 	enemies_killed = 0
 	difficulty_value.text = str(0)
@@ -140,5 +156,5 @@ func _on_RestartButton_pressed():
 
 
 func _on_DialoguePlayer_dialogue_end(conversation_number):
-	difficulty_timer.start()
+	get_tree().paused = false
 	

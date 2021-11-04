@@ -13,12 +13,15 @@ export (float) var attack_distance = -3
 
 var attacking : bool = false
 
+var difficulty : int = 0
+
 var damage_queue = []
 
 func _ready():
 	prompt_text = PromptList.get_prompt()
 	prompt.parse_bbcode(set_center_tags(prompt_text))
-	GlobalSignals.connect("difficulty increased", self, "handle_difficulty_increased")
+	GlobalSignals.connect("difficulty_increase", self, "handle_difficulty_increased")
+
 	
 	
 func get_prompt() -> String:
@@ -33,6 +36,7 @@ func _physics_process(delta):
 		attacking = true
 	
 func set_next_character(next_character_index : int):
+	print("HELLO")
 	if(next_character_index != 0):
 		$Enemy/AnimationPlayer.stop()
 		$Enemy/AnimationPlayer.play("hit")
@@ -58,6 +62,9 @@ func set_difficulty(difficulty : int):
 func handle_difficulty_increased(new_difficulty : int):
 	var new_speed = speed + (0.005 * new_difficulty)
 	speed = clamp(new_speed, speed, .02)
+	
+func handle_level_increased(new_level : int):
+	difficulty = new_level
 	
 func resetTimer():
 	$AttackTimer.start()
