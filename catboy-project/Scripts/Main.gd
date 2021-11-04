@@ -302,39 +302,86 @@ func _on_SpawnTimer_timeout() -> void:
 # - Called when Difficulty Timer Elapses
 # - Handles incrementing Difficulty
 func _on_DifficultyTimer_timeout():
-	if difficulty >= 10:
+
+	# Increment Difficulty by 1
+	difficulty += 1
+	
+	# Update UI element to reflect change in difficulty
+	difficulty_value.text = str(difficulty)
+	
+	# Print to Debug Console that difficulty has increased 
+	print("Difficulty increased to %d" % difficulty)
+	
+	# Update Wait Timer
+	# - Clamp means that at minimum, the timer must be 1 second
+	spawn_timer.wait_time = clamp(spawn_timer.wait_time - 0.2, 1, spawn_timer.wait_time)
+	
+	# Levels are broken up into 10 difficulty increases
+	# - Increase level when difficulty goes past 10 and reset difficulty to 0
+	
+	# Check if difficulty is past max
+	if difficulty >= 11:
+		
+		# Increment level by 1
+		# - There are three levels [0, 1, and 2]
+		# - While not on the last level, increment level by 1
 		if level < 2:
+			
+			# Increment Level
 			level += 1
+			
+			# Reset Difficulty
 			difficulty = 0
+			
+			# Print to Debug Console
 			print("Level increased to %d" % level)
+			
+			# Play Dialogue for Wave
 			playDialogue()
+			
+			# Update Prompt List to New Level - Easy->Medium->Hard
 			PromptList.handle_level_increased(level)
+			
+			# Increase Spawn Timer to not absolutely KILL player
 			spawn_timer.wait_time = spawn_timer.wait_time + 1
 			return
 		else:
-			difficulty = 10
-			difficulty_timer.stop()
+			# If hit cap on last level, end
+			game_over()
 			return
 	
-	difficulty += 1
-	difficulty_value.text = str(difficulty)
-	GlobalSignals.emit_signal("difficulty_increase", difficulty)
-	print("Difficulty increased to %d" % difficulty)
-	var new_wait_time = spawn_timer.wait_time - 0.2
-	spawn_timer.wait_time = clamp(new_wait_time, 1, spawn_timer.wait_time)
-	
+# On Pause Button Pressed
+# - Called when Pause Button is Pressed
 func _on_PauseButton_pressed():
+	
+	# Pause Processing while in Pause Menu
 	get_tree().paused = true
+	
+	# Display Pause Menu
 	game_pause_screen.show()
 
+# On Resume Button Pressed
+# - Called when Resume Button - in pause menu - is Pressed
 func _on_ResumeButton_pressed():
+	
+	# Unpause Processing
 	get_tree().paused = false
+	
+	# Hide Pause Menu
 	game_pause_screen.hide()
 
+# On Restart Button Pressed
+# - Called when Restart Button - in game over menu - is Pressed
 func _on_RestartButton_pressed():
+	
+	# Debug Print
 	print("Restarted")
+	
+	# Restarts Game
 	start_game()
 
+# Called when DialoguePlayer sends signal that dialogue has finished
 func _on_DialoguePlayer_dialogue_end(conversation_number):
+	# Unpause Processing that was paused when PlayDialogue was called
 	get_tree().paused = false
 	
