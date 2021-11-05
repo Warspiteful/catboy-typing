@@ -18,6 +18,8 @@ signal dialogue_start(conversation_number)
 #Important Variables# 
 #-------------------#
 
+const HEALTH = 5
+
 var active_enemy = null;
 # Holds the current enemy being typed
 
@@ -31,7 +33,7 @@ var difficulty :int = 1
 var enemies_killed : int = 0
 # Tracks how many enemies have been killed
 
-var health : int = 5 
+var health : int = HEALTH
 # Tracks the health of the player
 # - Used for loss condition
 
@@ -92,6 +94,8 @@ func start_game():
 	# Resets all variables 
 	difficulty = 0
 	enemies_killed = 0
+	health = HEALTH
+	level = 0
 	difficulty_value.text = str(0)
 	killed_value.text = str(0)
 	health_value.text = str(health)
@@ -216,7 +220,7 @@ func spawn_enemy():
 	
 	# Sets its position to a random place within view
 	# - Numbers found through experimentation
-	enemy_instance.set_translation(Vector3(rand_range(-3,3),rand_range(-3,0),-6))
+	enemy_instance.set_translation(Vector3(rand_range(-3,3),rand_range(-3,0),-10))
 	
 	# Set instance to a child of enemy_container
 	# - This allows us to quickly iterate through all existing instances
