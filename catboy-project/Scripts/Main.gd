@@ -312,6 +312,11 @@ func _on_DifficultyTimer_timeout():
 	# Print to Debug Console that difficulty has increased 
 	print("Difficulty increased to %d" % difficulty)
 	
+	
+	# Emit Difficulty Increase Signal 
+	# - Connects to all enemy instances - see Enemy.gd for more info
+	GlobalSignals.emit_signal("difficulty_increase", difficulty)
+
 	# Update Wait Timer
 	# - Clamp means that at minimum, the timer must be 1 second
 	spawn_timer.wait_time = clamp(spawn_timer.wait_time - 0.2, 1, spawn_timer.wait_time)
