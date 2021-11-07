@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://PlayButton.gd" type="Script" id=1]
 [ext_resource path="res://Select.wav" type="AudioStream" id=2]
+[ext_resource path="res://SOUNDS/catboy_menu_bad2.wav" type="AudioStream" id=3]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Roboto-Regular.ttf"
@@ -19,18 +20,18 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 1928.0
-margin_bottom = 1087.0
+margin_right = 1593.0
+margin_bottom = 970.0
 color = Color( 0.388235, 0.627451, 0.784314, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 605.744
-margin_top = 314.286
-margin_right = 1198.74
-margin_bottom = 473.286
+margin_left = 416.957
+margin_top = 212.401
+margin_right = 1009.96
+margin_bottom = 371.401
 custom_fonts/font = SubResource( 2 )
 text = "Catboy Typing Game"
 align = 1
@@ -39,10 +40,10 @@ __meta__ = {
 }
 
 [node name="PlayButton" type="Button" parent="."]
-margin_left = 784.582
-margin_top = 706.641
-margin_right = 1086.58
-margin_bottom = 793.641
+margin_left = 508.893
+margin_top = 484.891
+margin_right = 810.891
+margin_bottom = 571.891
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -50,6 +51,10 @@ __meta__ = {
 
 [node name="SelectSound" type="AudioStreamPlayer" parent="PlayButton"]
 stream = ExtResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
 
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
 [connection signal="finished" from="PlayButton/SelectSound" to="PlayButton" method="_on_SelectSound_finished"]

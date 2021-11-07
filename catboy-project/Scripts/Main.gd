@@ -1,12 +1,18 @@
 extends Spatial
 
 
+
 # Enemy List
 # - Holds all enemies to be spawned 
-var Enemy = preload("res://Enemy.tscn")
-var Enemy2 = preload("res://Enemy.tscn")
-var Enemy3 = preload("res://Enemy.tscn")
-var Enemy4 = preload("res://Enemy.tscn")
+
+var Enemy2 = preload("res://Enemy2.tscn")
+var Enemy3 = preload("res://Enemy3.tscn")
+var Enemy4 = preload("res://Enemy4.tscn")
+var Enemy5 = preload("res://Enemy5.tscn")
+var enemyList = [Enemy2,Enemy3,Enemy4,Enemy4]
+var Boss = preload("res://Boss.tscn")
+
+
 
 # Dialogue Start Signal
 # - Communicates with DialoguePlayer to start conversation
@@ -78,18 +84,20 @@ func _ready():
 	
 	# Initializes Game
 	start_game()
-	
+
 # Start Game Function
 # - Sets all starting conditions for game
 # - Resets to base conditions
 func start_game():
-	
+	$MainMusic.play()
 	# Hides all menus
 	game_pause_screen.hide()
 	game_over_screen.hide()
 	
-	# Plays starting dialogue
+	level = -1
 	playDialogue()
+	# Plays starting dialogue
+
 	
 	# Resets all variables 
 	difficulty = 0
@@ -99,7 +107,9 @@ func start_game():
 	difficulty_value.text = str(0)
 	killed_value.text = str(0)
 	health_value.text = str(health)
+	PromptList.handle_level_increased(level)
 	
+	playDialogue()
 	# Randomizes Seed - Prevents Identical RNG
 	# - Built-in Function
 	randomize()
@@ -134,6 +144,7 @@ func _process(delta):
 			
 			## Subtract damage from health and remove from queue
 			health -= enemy.damage_queue.pop_back();
+			$damage.play()
 			
 			## Update text shown in UI
 			health_value.text = str(health);
@@ -175,7 +186,7 @@ func _input(event: InputEvent):
 			
 			# Check if the key typed is equal to the next character
 			if key_typed == next_char:
-				
+				$Gun.play()
 				# Prints to Console for Debugging Purposes
 				print("successfully typed %s " % key_typed)
 				
@@ -195,10 +206,14 @@ func _input(event: InputEvent):
 					# Reset current_letter_index
 					# - Arrays start at 0, so should set to -1 to be safe
 					current_letter_index = -1
-					
+					if(active_enemy.boss):
+						level = 4
+						playDialogue()
+						game_over()
 					# Resets Active Enemy
 					## Delete Enemy Instance
 					active_enemy.queue_free()
+					$kill.play()
 					## Nulls Active_Enemy, enables searching again
 					active_enemy = null
 					
@@ -216,7 +231,7 @@ func _input(event: InputEvent):
 func spawn_enemy():
 	
 	# Creates an instance of the enemy
-	var enemy_instance = Enemy.instance()
+	var enemy_instance = enemyList[randi() % enemyList.size()].instance()
 	
 	# Sets its position to a random place within view
 	# - Numbers found through experimentation
@@ -266,6 +281,8 @@ func find_new_active_enemy(typed_character: String):
 # Game Over Function
 ## - Called in _process when loss condition is hit		
 func game_over():
+	$Boss.stop()
+	$MainMusic.stop()
 	
 	# Display Game Over Screen
 	game_over_screen.show()
@@ -302,6 +319,25 @@ func _on_SpawnTimer_timeout() -> void:
 	# Call spawn_enemy to spawn a new enemy
 	spawn_enemy()
 
+
+func spawnBoss():
+	for enemy in enemy_container.get_children():
+		enemy.queue_free()
+		# Creates an instance of the enemy
+	var enemy_instance = Boss.instance()
+	active_enemy = null
+	# Sets its position to a random place within view
+	# - Numbers found through experimentation
+	enemy_instance.set_translation(Vector3(0,0,-10))
+	
+	# Set instance to a child of enemy_container
+	# - This allows us to quickly iterate through all existing instances
+	enemy_container.add_child(enemy_instance)
+	
+	# Tells instance the current difficulty
+	## This allows it to get up to the current speed scale
+	enemy_instance.set_difficulty(difficulty)
+	
 # Difficulty Timer Timeout
 # - Called when Difficulty Timer Elapses
 # - Handles incrementing Difficulty
@@ -334,7 +370,7 @@ func _on_DifficultyTimer_timeout():
 		# Increment level by 1
 		# - There are three levels [0, 1, and 2]
 		# - While not on the last level, increment level by 1
-		if level < 2:
+		if level < 3:
 			
 			# Increment Level
 			level += 1
@@ -352,13 +388,16 @@ func _on_DifficultyTimer_timeout():
 			PromptList.handle_level_increased(level)
 			
 			# Increase Spawn Timer to not absolutely KILL player
-			spawn_timer.wait_time = spawn_timer.wait_time + 1
+			spawn_timer.wait_time = spawn_timer.wait_time + 2
 			return
-		else:
-			# If hit cap on last level, end
-			game_over()
-			return
-	
+		elif level >= 3:
+			level += 1
+			$MainMusic.stop()
+			$Boss.play()
+			playDialogue()
+			spawnBoss()
+			$DifficultyTimer.stop()
+			
 # On Pause Button Pressed
 # - Called when Pause Button is Pressed
 func _on_PauseButton_pressed():

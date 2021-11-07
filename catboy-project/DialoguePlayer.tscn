@@ -23,18 +23,20 @@ __meta__ = {
 }
 
 [node name="Name" type="RichTextLabel" parent="NinePatchRect"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 18.0
+margin_top = 3.0
+margin_right = 214.0
+margin_bottom = 43.0
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Message" type="RichTextLabel" parent="NinePatchRect"]
-margin_left = 2.0
-margin_top = 15.0
-margin_right = 986.0
-margin_bottom = 154.0
+margin_left = 18.6397
+margin_top = 18.4666
+margin_right = 1002.64
+margin_bottom = 157.467
 text = "THIS IS PLACEHOLDER TEXT"
 __meta__ = {
 "_edit_use_anchors_": false

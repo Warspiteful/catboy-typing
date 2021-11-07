@@ -36,6 +36,8 @@ var difficulty : int = 0
 ## - Tracks any damage being dealt by enemy
 var damage_queue = []
 
+var boss = false
+
 # Ready Function
 ## Called at initialization
 func _ready():

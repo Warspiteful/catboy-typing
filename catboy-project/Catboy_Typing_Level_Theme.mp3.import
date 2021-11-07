@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Catboy_Typing_Level_Theme.mp3-89365bdf3f8856a62d5fcdf869fa45c7.mp3str"
+
+[deps]
+
+source_file="res://Catboy_Typing_Level_Theme.mp3"
+dest_files=[ "res://.import/Catboy_Typing_Level_Theme.mp3-89365bdf3f8856a62d5fcdf869fa45c7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
